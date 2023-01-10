@@ -23,29 +23,29 @@ const Register = () => {
 
   const googleLogin = () => {
     signInWithProvider(googleProvider).then((result) => {
-		const user = result.user;
-		console.log(user)
+      const user = result.user;
+      console.log(user);
       const createUser = {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
         userUID: user.uid,
       };
-		console.log(createUser);
-		fetch("http://localhost:5000/user", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(createUser),
-    })
-      .then((res) => res.json())
-      .then((successData) => {
-        if (successData.acknowledged) {
-          console.log(successData);
-          toast("Succefully LogIn");
-        }
-      });
+      console.log(createUser);
+      fetch("http://localhost:5000/user", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(createUser),
+      })
+        .then((res) => res.json())
+        .then((successData) => {
+          if (successData.acknowledged) {
+            console.log(successData);
+            toast("Succefully LogIn");
+          }
+        });
     });
   };
 
@@ -90,8 +90,8 @@ const Register = () => {
                     .then((res) => res.json())
                     .then((successData) => {
                       if (successData.acknowledged) {
-						  console.log(successData);
-						  reset()
+                        console.log(successData);
+                        reset();
                         toast("Succefully account crate");
                       }
                     });
@@ -113,7 +113,7 @@ const Register = () => {
     <div className="flex justify-center ">
       <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mt-8">
         <h1 className="text-center mt-5 text-2xl font-bold">
-          Rgistration From
+          Rgistration Form
         </h1>
         <form onSubmit={handleSubmit(handleUserCreate)} className="card-body">
           <div className="form-control">
@@ -121,22 +121,30 @@ const Register = () => {
               <span className="label-text">Your Name</span>
             </label>
             <input
-              {...register("name")}
+              {...register("name", { required: "Please Enter Your Name" })}
               type="text"
               placeholder="Your Name"
               className="input input-bordered"
             />
+            {errors.name && (
+              <p className="text-rose-500 mt-1">{errors.name?.message}</p>
+            )}
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Your Name</span>
             </label>
             <input
               type="file"
-              {...register("img")}
+              {...register("img", { required: "Please Select One Picture." })}
               className="file-input w-full max-w-xs"
             />
+            {errors.img && (
+              <p className="text-rose-500 mt-1">{errors.img?.message}</p>
+            )}
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
@@ -147,18 +155,28 @@ const Register = () => {
               placeholder="email"
               className="input input-bordered"
             />
+            {errors.email && (
+              <p className="text-rose-500 mt-1">{errors.email?.message}</p>
+            )}
           </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
               type="password"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: "Please Enter a Passdword.",
+              })}
               placeholder="password"
               className="input input-bordered"
             />
+            {errors.password && (
+              <p className="text-rose-500 mt-1">{errors.password?.message}</p>
+            )}
           </div>
+
           <div className="form-control mt-6">
             <input className="btn btn-primary" type="submit" value="Register" />
           </div>

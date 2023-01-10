@@ -2,20 +2,24 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
-import googleImg from "../../Assets/google.png"
+import googleImg from "../../Assets/google.png";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-	const { register, reset, handleSubmit, formState: { errors },
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
   } = useForm();
 
-	const { signInWithProvider } = useContext(AuthContext);
+  const { signInWithProvider, logIn } = useContext(AuthContext);
 
-	const googleProvider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
 
-	const googleLogin = () => {
-		signInWithProvider(googleProvider).then((result) => {
+  const googleLogin = () => {
+    signInWithProvider(googleProvider).then((result) => {
       const user = result.user;
       console.log(user);
       const createUser = {
@@ -40,12 +44,18 @@ const Login = () => {
           }
         });
     });
-	}
-	const handleLogIn = () => {
-		console.log("click")
-		toast("Login successfull")
-	}
-
+  };
+  const handleLogIn = (data) => {
+    logIn(data.email, data.password)
+		.then((result) => {
+		  console.log(result)
+        reset();
+        toast.success("Successfully Login");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
 
   return (
     <div className="flex justify-center ">
@@ -62,17 +72,25 @@ const Login = () => {
               placeholder="email"
               className="input input-bordered"
             />
+            {errors.email && (
+              <p className="text-rose-500 mt-1">{errors.email?.message}</p>
+            )}
           </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
-              {...register("password", { required: "Pleaser Enter Your Password." })}
+              {...register("password", {
+                required: "Pleaser Enter Your Password.",
+              })}
               type="password"
               placeholder="password"
               className="input input-bordered"
             />
+            {errors.password && (
+              <p className="text-rose-500 mt-1">{errors.password?.message}</p>
+            )}
           </div>
           <input className="btn btn-primary" type="submit" value="Login" />
 
