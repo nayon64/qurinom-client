@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import SmallLoading from "../SmallLoading/SmallLoading";
 
 const EditPostModal = ({ post, setOpen }) => {
-	const { register, reset, handleSubmit } = useForm();
-	const { authAxios } = useContext(AuthContext);
+  const { register, reset, handleSubmit } = useForm();
+  const { authAxios } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const submitPost = (data) => {
     console.log(data.post);
@@ -14,14 +16,14 @@ const EditPostModal = ({ post, setOpen }) => {
     if (data.post === post.message) {
       toast.error("Please change your post and update.");
     } else {
-      authAxios.put(`/post?id=${post?._id}`, message)
-        .then((res) => {
-          console.log(res);
-          toast.success("Successfull Update");
-          reset();
-          post.message = data.post;
-          setOpen(false);
-        });
+      authAxios.put(`/post?id=${post?._id}`, message).then((res) => {
+        console.log(res);
+        toast.success("Successfull Update");
+        reset();
+        post.message = data.post;
+        setLoading(false);
+        setOpen(false);
+      });
     }
   };
   return (
@@ -45,10 +47,22 @@ const EditPostModal = ({ post, setOpen }) => {
           ></textarea>
 
           <input
+            onClick={() => {
+              setLoading(true);
+            }}
             type="submit"
-            value="Update"
-            className="px-3 py-2 w-20 text-center cursor-pointer mt-6 bg-green-400 rounded-lg font-semibold"
+            value="Post"
+            className={`px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-gray-600 rounded-lg font-semibold text-white ${
+              loading ? "hidden" : "block"
+            }`}
           />
+          <button
+            className={`px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-gray-600 rounded-lg font-semibold text-white ${
+              loading ? "block" : "hidden"
+            }`}
+          >
+            <SmallLoading />
+          </button>
         </form>
       </div>
     </div>

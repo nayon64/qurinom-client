@@ -17,13 +17,13 @@ const MyActivity = () => {
       });
   }, [user, authAxios]);
 	
-
+// setPosts, posts;
 	return (
 		<div>
 			<h1 className='text-center text-xl font-bold text-gray-600 my-4'>My Activity.</h1>
 			<div>
 				{
-					myPosts.length>0 && myPosts.map(post=><PostCard key={post._id} post={post}></PostCard>)
+					myPosts.length>0 && myPosts.map(post=><PostCard key={post._id} post={post} posts={myPosts} setPosts={setMyPosts}></PostCard>)
 				}
 			</div>
 		</div>

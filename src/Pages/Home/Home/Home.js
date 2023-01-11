@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <div>
       <AddPost setModalOpen={setModalOpen}></AddPost>
-      <Posts posts={posts}></Posts>
+      <Posts posts={posts} setPosts={setPosts}></Posts>
       {modalOpen && (
         <PostModal
           setModalOpen={setModalOpen}

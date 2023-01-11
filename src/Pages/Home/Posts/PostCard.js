@@ -4,13 +4,24 @@ import { FcLike, FcRefresh, FcSms } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 import EditPostModal from "../../../Shared/EditPostModal/EditPostModal";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, setPosts, posts }) => {
   const [open, setOpen] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { user, authAxios } = useContext(AuthContext);
 
   const date = new Date(post?.publishedDate);
   const publishDate = format(date, "pp PP");
+
+  const handleDelete = () => {
+    const confirmd = window.confirm("You are delete this post.");
+    if (confirmd) {
+      authAxios.delete(`/post?_id=${post._id}`).then((res) => {
+        console.log(res);
+        const remaingPosts = posts.filter((p) => p._id !== post._id);
+        setPosts(remaingPosts);
+      });
+    }
+  };
 
   return (
     <div className="bg-white rounded-lg mt-2 mx-3 mb-5 p-4">
@@ -34,12 +45,15 @@ const PostCard = ({ post }) => {
             <div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-slate-200 rounded-box w-52"
+                className="dropdown-content menu p-2 shadow bg-slate-200 rounded-box w-52 font-semibold"
               >
                 <li>
                   <a href="#edit-post" onClick={() => setOpen(true)}>
                     Edit
                   </a>
+                </li>
+                <li>
+                  <button onClick={handleDelete}>Delete</button>
                 </li>
               </ul>
             </div>
@@ -61,9 +75,7 @@ const PostCard = ({ post }) => {
           <FcRefresh /> <span className="ml-2">Report</span>
         </div>
       </div>
-      {open && (
-        <EditPostModal post={post} setOpen={setOpen}></EditPostModal>
-      )}
+      {open && <EditPostModal post={post} setOpen={setOpen}></EditPostModal>}
     </div>
   );
 };

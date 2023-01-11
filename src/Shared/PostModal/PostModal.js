@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import SmallLoading from "../SmallLoading/SmallLoading";
 
 const PostModal = ({ setModalOpen, posts, setPosts }) => {
-  const { user ,authAxios} = useContext(AuthContext);
+  const { user, authAxios } = useContext(AuthContext);
   const { register, reset, handleSubmit } = useForm();
 
-	
+  const [loading, setLoading] = useState(false);
+
   const submitMessage = (data) => {
     const date = new Date();
 
@@ -23,10 +25,11 @@ const PostModal = ({ setModalOpen, posts, setPosts }) => {
       console.log(res);
       if (res.data.acknowledged) {
         toast.success("post create");
-        setModalOpen(false);
         reset();
         const newPosts = [post, ...posts];
         setPosts(newPosts);
+        setLoading(false);
+        setModalOpen(false);
       }
     });
   };
@@ -53,10 +56,22 @@ const PostModal = ({ setModalOpen, posts, setPosts }) => {
           ></textarea>
 
           <input
+            onClick={() => {
+              setLoading(true);
+            }}
             type="submit"
             value="Post"
-            className="px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-gray-600 rounded-lg font-semibold text-white"
+            className={`px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-gray-600 rounded-lg font-semibold text-white ${
+              loading ? "hidden" : "block"
+            }`}
           />
+          <button
+            className={`px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-gray-600 rounded-lg font-semibold text-white ${
+              loading ? "block" : "hidden"
+            }`}
+          >
+            <SmallLoading />
+          </button>
         </form>
       </div>
     </div>
