@@ -23,7 +23,7 @@ const Login = () => {
 
   // set JWT token in local storage 
   const getJWTtoken = (email) => {
-    axios.get(`http://localhost:5000/jwt?email=${email}`)
+    axios.get(`https://qurinom-server.vercel.app/jwt?email=${email}`)
       .then(res => {
         console.log(res.data.accessToken)
         if (res.data.accessToken) {

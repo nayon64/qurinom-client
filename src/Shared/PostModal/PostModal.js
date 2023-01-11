@@ -1,13 +1,13 @@
-import axios from "axios";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
 const PostModal = ({ setModalOpen, posts, setPosts }) => {
-  const { user } = useContext(AuthContext);
+  const { user ,authAxios} = useContext(AuthContext);
   const { register, reset, handleSubmit } = useForm();
 
+	
   const submitMessage = (data) => {
     const date = new Date();
 
@@ -19,7 +19,7 @@ const PostModal = ({ setModalOpen, posts, setPosts }) => {
       authorEmail: user?.email,
     };
 
-    axios.post("https://qurinom-server.vercel.app/post", post).then((res) => {
+    authAxios.post("/post", post).then((res) => {
       console.log(res);
       if (res.data.acknowledged) {
         toast.success("post create");

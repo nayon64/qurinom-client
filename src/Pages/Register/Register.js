@@ -31,7 +31,7 @@ const Register = () => {
 
   // set JWT token in local storage
   const getJWTtoken = (email) => {
-    axios.get(`http://localhost:5000/jwt?email=${email}`).then((res) => {
+    axios.get(`https://qurinom-server.vercel.app/jwt?email=${email}`).then((res) => {
       if (res.data.accessToken) {
         localStorage.setItem("accessToken", res.data.accessToken);
         toast.success("Succefully LogIn");

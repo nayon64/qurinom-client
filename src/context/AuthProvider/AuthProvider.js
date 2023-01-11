@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../../firebase/firebase.config";
+import axios from "axios";
 
 const auth = getAuth(app);
 export const AuthContext = createContext();
@@ -25,6 +26,16 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSuscribe();
   }, []);
+
+  
+
+  // global axions 
+  const authAxios = axios.create({
+    baseURL: "https://qurinom-server.vercel.app",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
 
   // user log in by eamil and password
   const logIn = (email, password) => {
@@ -62,6 +73,7 @@ const AuthProvider = ({ children }) => {
     signInWithProvider,
     createUser,
     updateUserProfile,
+    authAxios,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

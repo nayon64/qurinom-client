@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import PostCard from '../Home/Posts/PostCard';
@@ -6,17 +5,17 @@ import PostCard from '../Home/Posts/PostCard';
 const MyActivity = () => {
 
 	const [myPosts, setMyPosts] = useState([])
-	const { user } = useContext(AuthContext)
+	const { user, authAxios } = useContext(AuthContext);
 	
 	
 	useEffect(() => {
-		axios
-      .get(`https://qurinom-server.vercel.app/userPosts?email=${user?.email}`)
+    authAxios
+      .get(`/userPosts?email=${user?.email}`)
       .then((res) => {
-		  const data = res?.data
-		  setMyPosts(data)
+        const data = res?.data;
+        setMyPosts(data);
       });
-	}, [user])
+  }, [user, authAxios]);
 	
 
 	return (

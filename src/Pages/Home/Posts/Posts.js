@@ -6,8 +6,8 @@ const Posts = ({ posts }) => {
     <div>
       <h3 className="px-3 my-2 font-bold text-xl">All Recent posts!</h3>
       {posts.length > 0 &&
-        posts.map((post) => (
-          <PostCard post={post} key={post._id}></PostCard>
+        posts.map((post,i) => (
+          <PostCard post={post} key={i}></PostCard>
         ))}
     </div>
   );

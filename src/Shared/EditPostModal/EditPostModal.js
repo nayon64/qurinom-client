@@ -1,10 +1,11 @@
-import axios from 'axios';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const EditPostModal = ({ post, setOpen }) => {
-  const { register, reset, handleSubmit } = useForm();
+	const { register, reset, handleSubmit } = useForm();
+	const { authAxios } = useContext(AuthContext);
 
   const submitPost = (data) => {
     console.log(data.post);
@@ -13,13 +14,12 @@ const EditPostModal = ({ post, setOpen }) => {
     if (data.post === post.message) {
       toast.error("Please change your post and update.");
     } else {
-      axios
-        .put(`https://qurinom-server.vercel.app/post?id=${post?._id}`, message)
+      authAxios.put(`/post?id=${post?._id}`, message)
         .then((res) => {
           console.log(res);
           toast.success("Successfull Update");
-			reset();
-			post.message=data.post
+          reset();
+          post.message = data.post;
           setOpen(false);
         });
     }
