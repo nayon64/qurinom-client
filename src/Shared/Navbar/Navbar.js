@@ -58,12 +58,16 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link to="/" className="text-xl text-blue-500 font-bold">
-            Qurinom <span className="text-green-400">Social</span>
+          
+          <Link to="/" className="w-48">
+            <img
+              src="https://qurinomsolutions.com/wp-content/uploads/2021/03/Group-11.png"
+              alt=""
+            />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 text-lg text-slate-700 font-semibold">
             <li>
               <Link to="/home">Home</Link>
             </li>
@@ -77,7 +81,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <Link
                 onClick={handleLogout}
-                className="bg-gray-600 px-3 py-2 rounded-lg text-white font-semibold mx-2 hidden lg:block"
+                className="bg-slate-700 px-3 py-2 rounded-lg text-white font-semibold mx-2 hidden lg:block"
               >
                 LogOut
               </Link>

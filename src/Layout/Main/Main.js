@@ -14,8 +14,7 @@ const Main = () => {
           <Outlet></Outlet>
         </div>
         <RightSideBanner></RightSideBanner>
-		  </div>
-		
+      </div>
     </div>
   );
 };

@@ -125,76 +125,84 @@ const Register = () => {
 
   return (
     <div className="flex justify-center w-screen ">
-      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mt-8">
+      <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100 mt-8">
         <h1 className="text-center mt-5 text-2xl font-bold">
-          Rgistration Form
+          Registration Form
         </h1>
         <form onSubmit={handleSubmit(handleUserCreate)} className="card-body">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Your Name</span>
-            </label>
-            <input
-              {...register("name", { required: "Please Enter Your Name" })}
-              type="text"
-              placeholder="Your Name"
-              className="input input-bordered"
-            />
-            {errors.name && (
-              <p className="text-rose-500 mt-1">{errors.name?.message}</p>
-            )}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Your Name</span>
+              </label>
+              <input
+                {...register("name", { required: "Please Enter Your Name" })}
+                type="text"
+                placeholder="Your Name"
+                className="input input-bordered"
+              />
+              {errors.name && (
+                <p className="text-rose-500 mt-1">{errors.name?.message}</p>
+              )}
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Your Profile Image</span>
+              </label>
+              <input
+                type="file"
+                {...register("img", { required: "Please Select One Picture." })}
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
+              {errors.img && (
+                <p className="text-rose-500 mt-1">{errors.img?.message}</p>
+              )}
+            </div>
           </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Your Profile Image</span>
-            </label>
-            <input
-              type="file"
-              {...register("img", { required: "Please Select One Picture." })}
-              className="file-input w-full max-w-xs"
-            />
-            {errors.img && (
-              <p className="text-rose-500 mt-1">{errors.img?.message}</p>
-            )}
-          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="text"
+                {...register("email", { required: "Please enter your email" })}
+                placeholder="email"
+                className="input input-bordered"
+              />
+              {errors.email && (
+                <p className="text-rose-500 mt-1">{errors.email?.message}</p>
+              )}
+            </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="text"
-              {...register("email", { required: "Please enter your email" })}
-              placeholder="email"
-              className="input input-bordered"
-            />
-            {errors.email && (
-              <p className="text-rose-500 mt-1">{errors.email?.message}</p>
-            )}
-          </div>
-
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              {...register("password", {
-                required: "Please Enter a Passdword.",
-              })}
-              placeholder="password"
-              className="input input-bordered"
-            />
-            {errors.password && (
-              <p className="text-rose-500 mt-1">{errors.password?.message}</p>
-            )}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                {...register("password", {
+                  required: "Please Enter a Passdword.",
+                })}
+                placeholder="password"
+                className="input input-bordered"
+              />
+              {errors.password && (
+                <p className="text-rose-500 mt-1">{errors.password?.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="form-control mt-6">
-            <input className="btn btn-primary" type="submit" value="Register" />
+            <input
+              className="btn btn-primary max-w-lg mx-auto"
+              type="submit"
+              value="Register"
+            />
           </div>
-          <p>
+          <p className="text-center">
             Have an account?
             <Link className="font-semibold text-primary ml-1" to="/login">
               LogIn

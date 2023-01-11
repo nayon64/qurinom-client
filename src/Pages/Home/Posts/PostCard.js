@@ -12,6 +12,7 @@ const PostCard = ({ post, setPosts, posts }) => {
   const date = new Date(post?.publishedDate);
   const publishDate = format(date, "pp PP");
 
+  // post delete function
   const handleDelete = () => {
     const confirmd = window.confirm("You are delete this post.");
     if (confirmd) {

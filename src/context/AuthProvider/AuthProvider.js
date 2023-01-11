@@ -60,7 +60,9 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  // user logout 
   const logOut = () => {
+    localStorage.removeItem("accessToken");
     setLoading(true);
     return signOut(auth);
   };
