@@ -10,7 +10,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/posts").then((res) => {
+    axios.get("https://qurinom-server.vercel.app/posts").then((res) => {
       setPosts(res?.data);
     });
   }, []);
@@ -19,8 +19,6 @@ const Home = () => {
     <div>
       <AddPost setModalOpen={setModalOpen}></AddPost>
       <Posts posts={posts}></Posts>
-
-      <h1>This is home section</h1>
       {modalOpen && (
         <PostModal
           setModalOpen={setModalOpen}

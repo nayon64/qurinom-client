@@ -1,20 +1,17 @@
+import axios from "axios";
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthProvider/AuthProvider";
-import googleImg from "../../Assets/google.png";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import googleImg from "../../Assets/google.png";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
 const Login = () => {
 
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
+  
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -24,19 +21,32 @@ const Login = () => {
 
   const googleProvider = new GoogleAuthProvider();
 
+  // set JWT token in local storage 
+  const getJWTtoken = (email) => {
+    axios.get(`http://localhost:5000/jwt?email=${email}`)
+      .then(res => {
+        console.log(res.data.accessToken)
+        if (res.data.accessToken) {
+          localStorage.setItem("accessToken", res.data.accessToken);
+          toast.success("Succefully LogIn");
+          navigate(from, { replace: true });
+        }
+    })
+  }
+
   // google login function
   const googleLogin = () => {
     signInWithProvider(googleProvider).then((result) => {
       const user = result.user;
-      console.log(user);
       const createUser = {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
         userUID: user.uid,
       };
-      console.log(createUser);
-      fetch("http://localhost:5000/user", {
+      console.log(user)
+
+      fetch("https://qurinom-server.vercel.app/user", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -46,9 +56,8 @@ const Login = () => {
         .then((res) => res.json())
         .then((successData) => {
           if (successData.acknowledged) {
-            console.log(successData);
-            toast("Succefully LogIn");
-            navigate(from, { replace: true });
+            const email = user.email
+            getJWTtoken(email)
           }
         });
     });
@@ -58,15 +67,16 @@ const Login = () => {
   const handleLogIn = (data) => {
     logIn(data.email, data.password)
       .then((result) => {
-        console.log(result);
+        const email = result.user.email
+        getJWTtoken(email);
         reset();
-        toast.success("Successfully Login");
-        navigate(from, { replace: true });
       })
       .catch((err) => {
         toast.error(err.message);
       });
   };
+
+  
 
   return (
     <div className="flex justify-center w-screen">

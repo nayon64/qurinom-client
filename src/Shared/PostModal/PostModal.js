@@ -19,7 +19,7 @@ const PostModal = ({ setModalOpen, posts, setPosts }) => {
       authorEmail: user?.email,
     };
 
-    axios.post("http://localhost:5000/post", post).then((res) => {
+    axios.post("https://qurinom-server.vercel.app/post", post).then((res) => {
       console.log(res);
       if (res.data.acknowledged) {
         toast.success("post create");

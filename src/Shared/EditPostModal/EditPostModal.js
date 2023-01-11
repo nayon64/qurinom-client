@@ -14,7 +14,7 @@ const EditPostModal = ({ post, setOpen }) => {
       toast.error("Please change your post and update.");
     } else {
       axios
-        .put(`http://localhost:5000/post?id=${post?._id}`, message)
+        .put(`https://qurinom-server.vercel.app/post?id=${post?._id}`, message)
         .then((res) => {
           console.log(res);
           toast.success("Successfull Update");

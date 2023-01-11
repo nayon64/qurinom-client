@@ -1,10 +1,11 @@
+import axios from "axios";
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthProvider/AuthProvider";
-import googleImg from "../../Assets/google.png";
 import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import googleImg from "../../Assets/google.png";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
 const Register = () => {
   const {
@@ -21,15 +22,28 @@ const Register = () => {
 
   const { signInWithProvider, createUser, updateUserProfile } =
     useContext(AuthContext);
-  const imageHostKey = process.env.REACT_APP_imgbb_API_KEY;
-  console.log(imageHostKey);
 
+  // imageBB API key
+  const imageHostKey = process.env.REACT_APP_imgbb_API_KEY;
+
+  // provdier
   const googleProvider = new GoogleAuthProvider();
+
+  // set JWT token in local storage
+  const getJWTtoken = (email) => {
+    axios.get(`http://localhost:5000/jwt?email=${email}`).then((res) => {
+      if (res.data.accessToken) {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        toast.success("Succefully LogIn");
+        navigate(from, { replace: true });
+      }
+    });
+  };
 
   const googleLogin = () => {
     signInWithProvider(googleProvider).then((result) => {
       const user = result.user;
-      console.log(user);
+      console.log(user.email);
       const createUser = {
         email: user.email,
         displayName: user.displayName,
@@ -37,7 +51,7 @@ const Register = () => {
         userUID: user.uid,
       };
       console.log(createUser);
-      fetch("http://localhost:5000/user", {
+      fetch("https://qurinom-server.vercel.app/user", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -47,20 +61,17 @@ const Register = () => {
         .then((res) => res.json())
         .then((successData) => {
           if (successData.acknowledged) {
-            console.log(successData);
-            toast("Succefully LogIn");
-            navigate(from, { replace: true });
+            getJWTtoken(user?.email);
           }
         });
     });
   };
 
+  // create user with email and password 
   const handleUserCreate = (data) => {
     const image = data.img[0];
-    console.log(image);
     const formData = new FormData();
     formData.append("image", image);
-    console.log(formData);
 
     //   fetch image file in imgbb
     fetch(`https://api.imgbb.com/1/upload?key=${imageHostKey}`, {
@@ -74,7 +85,6 @@ const Register = () => {
           createUser(data.email, data.password)
             .then((result) => {
               const user = result.user;
-              console.log(user.uid);
 
               // update user name and imgurl
               updateUserProfile({ displayName: data.name, photoURL: imgUrl })
@@ -86,7 +96,7 @@ const Register = () => {
                     userUID: user.uid,
                   };
 
-                  fetch("http://localhost:5000/user", {
+                  fetch("https://qurinom-server.vercel.app/user", {
                     method: "POST",
                     headers: {
                       "content-type": "application/json",
@@ -96,20 +106,17 @@ const Register = () => {
                     .then((res) => res.json())
                     .then((successData) => {
                       if (successData.acknowledged) {
-                        console.log(successData);
+                        const email = user.email;
+                        getJWTtoken(email);
                         reset();
-                        toast("Succefully account crate");
-                        navigate(from, { replace: true });
                       }
                     });
                 })
                 .catch((err) => {
-                  console.log(err);
                   toast(err.message);
                 });
             })
             .catch((err) => {
-              console.log(err);
               toast(err.message);
             });
         }

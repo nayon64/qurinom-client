@@ -11,7 +11,7 @@ const MyActivity = () => {
 	
 	useEffect(() => {
 		axios
-      .get(`http://localhost:5000/userPosts?email=${user?.email}`)
+      .get(`https://qurinom-server.vercel.app/userPosts?email=${user?.email}`)
       .then((res) => {
 		  const data = res?.data
 		  setMyPosts(data)
