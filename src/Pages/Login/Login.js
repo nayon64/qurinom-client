@@ -1,18 +1,24 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import googleImg from "../../Assets/google.png";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
+
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const { signInWithProvider, logIn } = useContext(AuthContext);
 
@@ -42,6 +48,7 @@ const Login = () => {
           if (successData.acknowledged) {
             console.log(successData);
             toast("Succefully LogIn");
+            navigate(from, { replace: true });
           }
         });
     });
@@ -54,6 +61,7 @@ const Login = () => {
         console.log(result);
         reset();
         toast.success("Successfully Login");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         toast.error(err.message);

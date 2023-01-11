@@ -1,6 +1,6 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import googleImg from "../../Assets/google.png";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,11 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const { signInWithProvider, createUser, updateUserProfile } =
     useContext(AuthContext);
@@ -44,6 +49,7 @@ const Register = () => {
           if (successData.acknowledged) {
             console.log(successData);
             toast("Succefully LogIn");
+            navigate(from, { replace: true });
           }
         });
     });
@@ -93,6 +99,7 @@ const Register = () => {
                         console.log(successData);
                         reset();
                         toast("Succefully account crate");
+                        navigate(from, { replace: true });
                       }
                     });
                 })
