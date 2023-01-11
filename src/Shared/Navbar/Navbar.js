@@ -74,7 +74,7 @@ console.log(user)
         </ul>
       </div>
       <div className="navbar-end">
-        {user.uid && (
+        {user?.uid && (
           <div className="flex items-center">
             <Link
               onClick={handleLogout}

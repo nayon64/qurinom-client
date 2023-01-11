@@ -4,6 +4,7 @@ import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import MyActivity from "../../Pages/MyActivity/MyActivity";
 import Register from "../../Pages/Register/Register";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/myActivity",
-        element: <MyActivity></MyActivity>,
+        element: (
+          <PrivateRoute>
+            <MyActivity></MyActivity>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
