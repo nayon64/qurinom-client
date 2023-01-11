@@ -16,6 +16,7 @@ const PostModal = ({ setModalOpen, posts, setPosts }) => {
       publishedDate: date,
       authorName: user.displayName,
       authorPhotoURL: user.photoURL,
+      authorEmail: user?.email,
     };
 
     axios.post("http://localhost:5000/post", post).then((res) => {

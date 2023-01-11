@@ -11,7 +11,6 @@ const Home = () => {
 
   useEffect(() => {
     axios.get("http://localhost:5000/posts").then((res) => {
-      console.log(res.data);
       setPosts(res?.data);
     });
   }, []);
@@ -23,7 +22,11 @@ const Home = () => {
 
       <h1>This is home section</h1>
       {modalOpen && (
-        <PostModal setModalOpen={setModalOpen} posts={posts} setPosts={setPosts}></PostModal>
+        <PostModal
+          setModalOpen={setModalOpen}
+          posts={posts}
+          setPosts={setPosts}
+        ></PostModal>
       )}
     </div>
   );
