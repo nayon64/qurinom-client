@@ -6,7 +6,7 @@ const AddPost = ({ setModalOpen }) => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="bg-gray-200 rounded-lg mt-2 mx-3 p-4">
+    <div className="bg-white rounded-lg mt-2 mx-3 p-4">
       <div className=" flex">
         <div className="avatar">
           <div className="w-12 rounded-full">
@@ -20,7 +20,7 @@ const AddPost = ({ setModalOpen }) => {
             type="text"
             readOnly
             placeholder="Start a post.."
-            className="input input-ghost input-bordered w-full ml-2 hover:bg-white cursor-pointer"
+            className="input input-ghost input-bordered w-full ml-2 hover:bg-gray-200 cursor-pointer"
           />
         </a>
       </div>

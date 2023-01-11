@@ -13,7 +13,7 @@ const PostCard = ({ post }) => {
   const publishDate = format(date, "pp PP");
 
   return (
-    <div className="bg-gray-200 rounded-lg mt-2 mx-3 mb-5 p-4">
+    <div className="bg-white rounded-lg mt-2 mx-3 mb-5 p-4">
       <div className="flex justify-between">
         <div className="flex items-center">
           <div className="avatar">
@@ -34,11 +34,10 @@ const PostCard = ({ post }) => {
             <div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                className="dropdown-content menu p-2 shadow bg-slate-200 rounded-box w-52"
               >
                 <li>
                   <a href="#edit-post" onClick={() => setOpen(true)}>
-                    {" "}
                     Edit
                   </a>
                 </li>

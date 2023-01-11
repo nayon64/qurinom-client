@@ -6,11 +6,11 @@ import UserProfile from "../../Shared/UserProfile/UserProfile";
 
 const Main = () => {
   return (
-    <div>
+    <div className="bg-gray-300 min-h-screen">
       <Navbar></Navbar>
       <div className="grid md:grid-cols-5">
         <UserProfile></UserProfile>
-        <div className="col-span-3 bg-green-300">
+        <div className="col-span-3">
           <Outlet></Outlet>
         </div>
         <RightSideBanner></RightSideBanner>

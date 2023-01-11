@@ -55,7 +55,7 @@ const PostModal = ({ setModalOpen, posts, setPosts }) => {
           <input
             type="submit"
             value="Post"
-            className="px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-green-400 rounded-lg font-semibold"
+            className="px-3 py-2 w-16 text-center cursor-pointer mt-6 bg-gray-600 rounded-lg font-semibold text-white"
           />
         </form>
       </div>

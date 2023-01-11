@@ -21,7 +21,7 @@ const MyActivity = () => {
 
 	return (
 		<div>
-			<h1>My Activity page.</h1>
+			<h1 className='text-center text-xl font-bold text-gray-600 my-4'>My Activity.</h1>
 			<div>
 				{
 					myPosts.length>0 && myPosts.map(post=><PostCard key={post._id} post={post}></PostCard>)
