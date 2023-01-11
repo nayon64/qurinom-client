@@ -6,9 +6,9 @@ const UserProfile = () => {
 	const {user}=useContext(AuthContext)
 	
 	return (
-    <div>
+    <div className=''>
       {/* user image  */}
-      <div className="mx-3 mt-2 border rounded-md overflow-hidden hidden md:block">
+      <div className="sticky top-20 mx-3 mt-2 border rounded-md overflow-hidden hidden md:block">
         <div className="relative ">
           <img
             className="w-full h-28 object-cover"

@@ -15,12 +15,12 @@ const AddPost = ({ setModalOpen }) => {
         </div>
 
         <a href="#add-post" className="w-full">
-				  <input
-					  onClick={()=>setModalOpen(true) }
+          <input
+            onClick={() => setModalOpen(true)}
             type="text"
             readOnly
             placeholder="Start a post.."
-            className="input input-ghost input-bordered w-full ml-2 hover:bg-white"
+            className="input input-ghost input-bordered w-full ml-2 hover:bg-white cursor-pointer"
           />
         </a>
       </div>
