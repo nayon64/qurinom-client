@@ -17,7 +17,7 @@ const UserProfile = () => {
           />
           <div className="avatar -mt-12 w-full">
             <div className="w-24 rounded-full mx-auto border-2">
-              <img src="https://placeimg.com/192/192/people" alt="" />
+              <img src={user?.photoURL} alt="" />
             </div>
           </div>
         </div>
