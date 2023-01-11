@@ -133,7 +133,7 @@ const Register = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Your Name</span>
+              <span className="label-text">Your Profile Image</span>
             </label>
             <input
               type="file"

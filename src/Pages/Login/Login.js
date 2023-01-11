@@ -18,6 +18,7 @@ const Login = () => {
 
   const googleProvider = new GoogleAuthProvider();
 
+  // google login function
   const googleLogin = () => {
     signInWithProvider(googleProvider).then((result) => {
       const user = result.user;
@@ -45,10 +46,12 @@ const Login = () => {
         });
     });
   };
+
+  // user email and password login fuction
   const handleLogIn = (data) => {
     logIn(data.email, data.password)
-		.then((result) => {
-		  console.log(result)
+      .then((result) => {
+        console.log(result);
         reset();
         toast.success("Successfully Login");
       })
