@@ -31,13 +31,15 @@ const Register = () => {
 
   // set JWT token in local storage
   const getJWTtoken = (email) => {
-    axios.get(`https://qurinom-server.vercel.app/jwt?email=${email}`).then((res) => {
-      if (res.data.accessToken) {
-        localStorage.setItem("accessToken", res.data.accessToken);
-        toast.success("Succefully LogIn");
-        navigate(from, { replace: true });
-      }
-    });
+    axios
+      .get(`https://qurinom-server.vercel.app/jwt?email=${email}`)
+      .then((res) => {
+        if (res.data.accessToken) {
+          localStorage.setItem("accessToken", res.data.accessToken);
+          toast.success("Succefully LogIn");
+          navigate(from, { replace: true });
+        }
+      });
   };
 
   const googleLogin = () => {
@@ -67,7 +69,7 @@ const Register = () => {
     });
   };
 
-  // create user with email and password 
+  // create user with email and password
   const handleUserCreate = (data) => {
     const image = data.img[0];
     const formData = new FormData();
@@ -125,12 +127,12 @@ const Register = () => {
 
   return (
     <div className="flex justify-center w-screen ">
-      <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100 mt-8">
+      <div className="card flex-shrink-0 w-full max-w-sm sm:max-w-2xl shadow-2xl bg-base-100 mt-8">
         <h1 className="text-center mt-5 text-2xl font-bold">
           Registration Form
         </h1>
         <form onSubmit={handleSubmit(handleUserCreate)} className="card-body">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Your Name</span>
@@ -161,7 +163,7 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
