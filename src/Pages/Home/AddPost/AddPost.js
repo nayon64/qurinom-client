@@ -24,22 +24,28 @@ const AddPost = ({ setModalOpen }) => {
           />
         </a>
       </div>
-      <div className="flex justify-between mt-4 mx-3">
+      <div className="flex justify-between mt-4 sm:mx-3">
         <div className="flex items-center ">
-          <FcPicture className="mr-3 text-2xl" />
-          <span className="text-base font-semibold text-gray-600">Photo</span>
+          <FcPicture className="mr-1 md:mr-3 text-2xl" />
+          <span className="text-sm sm:text-base font-semibold text-gray-600">
+            Photo
+          </span>
         </div>
         <div className="flex items-center ">
-          <FcVideoCall className="mr-3 text-2xl" />
-          <span className="text-base font-semibold text-gray-600">Video</span>
+          <FcVideoCall className="mr-1 md:mr-3 text-2xl" />
+          <span className="text-sm sm:text-base font-semibold text-gray-600">
+            Video
+          </span>
         </div>
         <div className="flex items-center ">
-          <FcCalendar className="mr-3 text-2xl" />
-          <span className="text-base font-semibold text-gray-600">Event</span>
+          <FcCalendar className="mr-1 md:mr-3 text-2xl" />
+          <span className="text-sm sm:text-base font-semibold text-gray-600">
+            Event
+          </span>
         </div>
         <div className="flex items-center ">
-          <FcAddImage className="mr-3 text-2xl" />
-          <span className="text-base font-semibold text-gray-600">
+          <FcAddImage className="mr-1 md:mr-3 text-2xl" />
+          <span className="text-sm sm:text-base font-semibold text-gray-600">
             Event Article
           </span>
         </div>
